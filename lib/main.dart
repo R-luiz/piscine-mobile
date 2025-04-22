@@ -28,15 +28,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String _text = 'Simple text';
+  static const String _simpleText = 'Simple text';
+  static const String _helloWorldText = 'Hello World!';
+  String _text = _simpleText;
 
-  void _incrementCounter() {
+  void _toggleText() {
     setState(() {
-      if (_text=='Simple text') {
-        _text = 'Hello World!';
-      } else {
-        _text = 'Simple text';
-      }
+      _text = _text == _simpleText ? _helloWorldText : _simpleText;
     });
     print('Button pressed');
   }
@@ -48,22 +46,27 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-          Text(_text),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: _incrementCounter,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Theme.of(context).colorScheme.primary,
-                foregroundColor: Colors.white,
-                textStyle: const TextStyle(fontSize: 13),
-              ),
-              child: const Text('Press me!'),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(_text),
+                const SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: _toggleText,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Theme.of(context).colorScheme.primary,
+                    foregroundColor: Colors.white,
+                    textStyle: const TextStyle(fontSize: 13),
+                  ),
+                  child: const Text('Press me!'),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
